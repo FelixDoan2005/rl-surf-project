@@ -1,0 +1,52 @@
+# --- Unity ---
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]serSettings/
+/[Mm]emoryCaptures/
+/[Bb]uild/
+/[Bb]uilds/
+/[Rr]ecordings/
+*.csproj
+*.sln
+*.slnx
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+sysinfo.txt
+*.apk
+*.aab
+*.unitypackage
+crashlytics-build.properties
+# .meta files are intentionally NOT ignored
+
+# --- IDEs ---
+.vs/
+.vscode/
+.idea/
+.gradle/
+*.suo
+*.user
+*.userprefs
+*.DotSettings.user
+.utmp/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+*.egg-info/
+results/
+runs/
+checkpoints/
+*.pt
+*.onnx
