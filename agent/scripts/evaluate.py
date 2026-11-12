@@ -36,18 +36,19 @@ def main():
     returns, seconds, endings = [], [], {}
     for ep in range(args.episodes):
         obs, info = env.reset(seed=args.seed + ep)          # same seeds for every agent
-        ret, done = 0.0, False
+        ret, steps, done = 0.0, 0, False
         while not done:
             obs, reward, terminated, truncated, info = env.step(agent.act(obs, deterministic=True))
             ret += reward
+            steps += 1
             done = terminated or truncated
         returns.append(ret)
-        seconds.append(info["episodeTime"])
-        e = ending_of(info, truncated)
+        seconds.append(info.get("episodeTime", steps))
+        e = ending_of(info, terminated, truncated)
         endings[e] = endings.get(e, 0) + 1
     env.close()
 
-    summary = {"algo": args.algo, "episodes": args.episodes, "seed": args.seed, "mode": args.mode, "repeat": args.repeat,
+    summary = {"algo": args.algo, "env": args.env, "episodes": args.episodes, "seed": args.seed, "mode": args.mode, "repeat": args.repeat,
                "return_mean": float(np.mean(returns)), "return_std": float(np.std(returns)),
                "sim_seconds_mean": float(np.mean(seconds)), "finish_rate": endings.get("finished", 0) / args.episodes,
                "endings": endings}

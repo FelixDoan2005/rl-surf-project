@@ -50,3 +50,5 @@ runs/
 checkpoints/
 *.pt
 *.onnx
+
+.pytest_cache/

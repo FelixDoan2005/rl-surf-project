@@ -84,9 +84,10 @@ class SnowboardEnv(gym.Env):
     def step(self, action):
         if self._needs_reset:
             raise UnityEnvError("call reset() before step() (and again after an episode ends)")
-        a = np.clip(np.asarray(action, dtype=np.float32).reshape(-1), self.action_space.low, self.action_space.high)
+        a = np.asarray(action, dtype=np.float32).reshape(-1)
         if a.shape[0] != self.action_size:
             raise ValueError(f"expected {self.action_size} actions {self.action_names}, got {a.shape[0]}")
+        a = np.clip(a, self.action_space.low, self.action_space.high)
         payload = self._request(b"S" + a.astype("<f4").tobytes(), expect=b"O")
         obs, reward, terminated, truncated, info = self._parse_obs(payload)
         if terminated or truncated:
