@@ -48,7 +48,7 @@ Tuck lowers drag (about 15 m/s tucked vs 13 m/s); brake slows and loosens sidewa
 - Lock-step and deterministic: physics only advances inside `step`; the same seed and actions gave an identical run (checked).
 - One game per environment object. For parallel environments run several players on different `port`s.
 - To watch or record a policy at normal speed use `realtime=True` with `graphics=True` (or the editor). Headless training uses the default.
-- Build the player with the Unity menu *Surf > Env Server > Build Windows Player* (output `Builds/`, not in git). Check speed and baselines with `python agent/speed_test.py --exe Builds/SnowboardEnv/SnowboardEnv.exe`.
+- Build the player with the Unity menu *Surf > Env Server > Build Windows Player* (output `Builds/`, not in git). Check speed and baselines with `python agent/scripts/speed_test.py --exe Builds/SnowboardEnv/SnowboardEnv.exe`.
 
 Measured on one machine (28 logical CPUs), headless: about 7,500 env steps/s at `action_repeat=1`, about 11,800 physics steps/s at `action_repeat=4` (118x real time), and about 37,000 physics steps/s with four players in parallel.
 Baselines, seed 0, high-level mode: "ride straight" (no input) finishes 10/10 in about 23.8 s (return about 36.8); random actions finish 0/20 and time out at 60 s (return 3.9 +- 2.1).
