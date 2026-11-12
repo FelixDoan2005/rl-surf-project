@@ -1,0 +1,5 @@
+{
+  "_note": "Hyperparameters for one run. train.py passes this dict to your agent as `config`. Copy and rename it per experiment (e.g. ppo_lr3e-4.json). These keys are only examples, use whatever your algorithm needs.",
+  "gamma": 0.99,
+  "learning_rate": 0.0003
+}
