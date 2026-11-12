@@ -1872,6 +1872,7 @@ MonoBehaviour:
   groundFollow: 1
   groundFollowMaxAngle: 55
   groundLookAheadSteps: 2
+  groundFollowMinInto: 0.35
 --- !u!171741748 &1667637984
 ArticulationBody:
   m_ObjectHideFlags: 0
