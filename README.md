@@ -18,7 +18,9 @@ A snowboarding/surfing game built in Unity 6, with agents trained from Python (P
    ```
 
 ## Run
-- **Play manually:** open a scene in `Assets/Scenes/` and press Play.
+- **Play manually:** open `Assets/Scenes/SampleScene.unity` and press Play. **A/D** steer, **W** tuck (faster), **S** brake (with A/D: drift), **Space** jump, **R** reset. It restarts by itself after a fall.
+- **Raw joint control:** tick the *Joint Tester* component on `SnowboarderAgent`, press Play, and use the sliders in the Game view.
+- **Environment spec** (observations, actions, reward): `docs/env_spec.md`.
 - **Train:** _TBD — will be `python agent/train.py ...` once the agent code exists._
 - **Training builds / results** go in `Build(s)/`, `results/`, `runs/` (all git-ignored).
 

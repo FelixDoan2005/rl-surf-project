@@ -32,3 +32,6 @@
 *.mov  filter=lfs diff=lfs merge=lfs -text
 *.exr  filter=lfs diff=lfs merge=lfs -text
 *.hdr  filter=lfs diff=lfs merge=lfs -text
+
+# The terrain heightmap is a BINARY .asset (not YAML): no line-ending rewrite, no text merge. Keep it in LFS.
+Assets/Terrain/*.asset filter=lfs diff=lfs merge=lfs -text

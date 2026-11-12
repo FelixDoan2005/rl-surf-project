@@ -8,6 +8,8 @@
 ## Unity rules
 - **Only one person edits a given Unity scene (or prefab) at a time.** Say so in the team chat before you start and when you finish. Scene/prefab merges are painful.
 - Prefer prefabs over editing the scene directly, to keep conflicts small.
+- `Assets/Terrain/SkiMountainData.asset` is a **binary** file (Git LFS) and cannot be merged: only the terrain owner edits it.
+- Physics settings (`ProjectSettings/TimeManager.asset`, `DynamicsManager.asset`) are part of the environment. Changing them changes training results, so agree first and update `docs/env_spec.md`.
 - Never commit `Library/`, `Temp/`, `UserSettings/`, `Logs/`, or builds.
 - Never delete or regenerate `.meta` files by hand.
 - Enable the merge driver once per clone:
