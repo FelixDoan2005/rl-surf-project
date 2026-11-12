@@ -1,7 +1,7 @@
 """Training entry point. Runs any registered agent in the env and logs every episode.
 
-    python agent/train.py --algo random --exe Builds/SnowboardEnv/SnowboardEnv.exe --episodes 20
-    python agent/train.py --algo ppo --config agent/configs/ppo.json --exe Builds/SnowboardEnv/SnowboardEnv.exe --repeat 4
+    python agent/scripts/train.py --algo random --exe Builds/SnowboardEnv/SnowboardEnv.exe --episodes 20
+    python agent/scripts/train.py --algo ppo --config agent/configs/ppo.json --exe Builds/SnowboardEnv/SnowboardEnv.exe --repeat 4
 
 Run it from the repo root. Each run writes results/<run>/ with config.json and episodes.csv (plot_results.py draws
 learning curves from those), plus final.pt if the agent's save() writes one. The learning itself is the agent's job
@@ -13,8 +13,8 @@ import json
 import os
 import time
 
-from algos import make_agent
-from common import RESULTS_DIR, add_env_args, ending_of, make_env
+from common import RESULTS_DIR, add_env_args, ending_of, make_env  # common also sets up the import path
+from algos import make_agent  # noqa: E402
 
 
 def main():

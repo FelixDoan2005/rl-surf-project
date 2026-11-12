@@ -1,7 +1,7 @@
 """Watch an agent at normal speed (for the demo video). Opens the game window and paces it in real time.
 
-    python agent/play.py --algo straight --exe Builds/SnowboardEnv/SnowboardEnv.exe
-    python agent/play.py --algo ppo --checkpoint results/ppo_x/final.pt --exe Builds/SnowboardEnv/SnowboardEnv.exe
+    python agent/scripts/play.py --algo straight --exe Builds/SnowboardEnv/SnowboardEnv.exe
+    python agent/scripts/play.py --algo ppo --checkpoint results/ppo_x/final.pt --exe Builds/SnowboardEnv/SnowboardEnv.exe
 
 Leave out --exe to use a game that's already running (Unity editor: press Play, then menu Surf > Env Server > Start).
 Record the window with OBS or the Windows Game Bar. For the before/after video run it once with the untrained
@@ -10,8 +10,8 @@ agent (or --algo random) and once with the trained checkpoint. Run it from the r
 import argparse
 import json
 
-from algos import make_agent
-from common import add_env_args, ending_of, make_env
+from common import add_env_args, ending_of, make_env  # common also sets up the import path
+from algos import make_agent  # noqa: E402
 
 
 def main():

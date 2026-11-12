@@ -1,7 +1,7 @@
 """Evaluate an agent on fixed seeds, so every agent gets the same start positions and the numbers are comparable.
 
-    python agent/evaluate.py --algo straight --exe Builds/SnowboardEnv/SnowboardEnv.exe --episodes 20
-    python agent/evaluate.py --algo ppo --checkpoint results/ppo_x/final.pt --exe Builds/SnowboardEnv/SnowboardEnv.exe
+    python agent/scripts/evaluate.py --algo straight --exe Builds/SnowboardEnv/SnowboardEnv.exe --episodes 20
+    python agent/scripts/evaluate.py --algo ppo --checkpoint results/ppo_x/final.pt --exe Builds/SnowboardEnv/SnowboardEnv.exe
 
 Uses act(obs, deterministic=True) and never calls observe(), so nothing is learned here. Run it from the repo root.
 """
@@ -10,8 +10,8 @@ import json
 
 import numpy as np
 
-from algos import make_agent
-from common import add_env_args, ending_of, make_env
+from common import add_env_args, ending_of, make_env  # common also sets up the import path
+from algos import make_agent  # noqa: E402
 
 
 def main():

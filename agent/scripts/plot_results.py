@@ -1,7 +1,7 @@
 """Learning curves from the episodes.csv files that train.py writes.
 
-    python agent/plot_results.py results/ppo_a results/sac_a --out docs/results/curves.png
-    python agent/plot_results.py results/ppo_a results/ppo_b --x episodes --window 50
+    python agent/scripts/plot_results.py results/ppo_a results/sac_a --out docs/results/curves.png
+    python agent/scripts/plot_results.py results/ppo_a results/ppo_b --x episodes --window 50
 
 Each folder given is one curve (label = folder name): return per episode, smoothed with a moving average.
 """

@@ -2,10 +2,11 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+AGENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # agent/ (has envs/ and algos/)
+sys.path.insert(0, AGENT_DIR)
 from envs.snowboard_env import SnowboardEnv  # noqa: E402
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # repo root
+ROOT = os.path.dirname(AGENT_DIR)   # repo root
 RESULTS_DIR = os.path.join(ROOT, "results")                          # git-ignored
 
 

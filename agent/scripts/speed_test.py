@@ -2,9 +2,9 @@
 
 Runs a policy that needs no learning and reports how fast the environment is (steps per second) and how it scores:
 
-    python agent/speed_test.py --exe Builds/SnowboardEnv/SnowboardEnv.exe --episodes 20          # random actions
-    python agent/speed_test.py --exe Builds/SnowboardEnv/SnowboardEnv.exe --policy straight       # just ride straight
-    python agent/speed_test.py --port 5555                                                        # game already running (editor)
+    python agent/scripts/speed_test.py --exe Builds/SnowboardEnv/SnowboardEnv.exe --episodes 20          # random actions
+    python agent/scripts/speed_test.py --exe Builds/SnowboardEnv/SnowboardEnv.exe --policy straight       # just ride straight
+    python agent/scripts/speed_test.py --port 5555                                                        # game already running (editor)
 
 --policy random is the random-agent baseline the coursework asks for; --policy straight (no input at all) is a
 useful "does nothing" baseline. Use --seed so the start positions are identical between runs.
@@ -17,7 +17,7 @@ import time
 
 import numpy as np
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))   # agent/
 from envs.snowboard_env import SnowboardEnv  # noqa: E402
 
 
