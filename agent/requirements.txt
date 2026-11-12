@@ -3,4 +3,3 @@ numpy
 gymnasium
 matplotlib
 tensorboard
-mlagents-envs

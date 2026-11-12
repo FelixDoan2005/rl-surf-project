@@ -15,6 +15,13 @@ public class ArticulationInterpolation : MonoBehaviour
 {
     public bool interpolate = true;   // false = draw the raw physics poses (for comparison)
 
+    // External clock: used by EnvServer in real-time mode. The physics is stepped from a script (Physics.Simulate), not
+    // by Unity's fixed loop, so the script says when each step happened (RecordStep) and how far through the current
+    // step the frame is (externalAlpha, 0..1).
+    [System.NonSerialized] public bool externalClock;
+    [System.NonSerialized] public float externalAlpha = 1f;
+    public void RecordStep() { Record(); }
+
     // Bodies drawn as ONE rigid piece at their average pose. The snowboard is two physics halves held together by a
     // spring; over bumps they flex against each other by a few mm, which looks like the board glitching. Drawn as a
     // group, the board stays visibly solid. (SnowboarderAgent fills this in with its two board halves.)
@@ -196,7 +203,7 @@ public class ArticulationInterpolation : MonoBehaviour
         while (true)
         {
             yield return wait;
-            Record();
+            if (!externalClock) Record();
         }
     }
 
@@ -219,9 +226,11 @@ public class ArticulationInterpolation : MonoBehaviour
     void LateUpdate()
     {
         if (!built) return;
-        // Blend only when Unity itself steps the physics; under a script-driven loop (training, tests) draw it raw.
-        bool blend = interpolate && Physics.simulationMode == SimulationMode.FixedUpdate;
-        Apply(blend ? Mathf.Clamp01((Time.time - Time.fixedTime) / Time.fixedDeltaTime) : -1f);
+        // Blend when Unity steps the physics, or when a script steps it and supplies the clock (EnvServer real-time);
+        // under any other script-driven loop (training, tests) draw the raw poses.
+        bool blend = interpolate && (externalClock || Physics.simulationMode == SimulationMode.FixedUpdate);
+        float a = externalClock ? externalAlpha : Mathf.Clamp01((Time.time - Time.fixedTime) / Time.fixedDeltaTime);
+        Apply(blend ? a : -1f);
     }
 
     void Apply(float a)   // a in [0,1] = blend from the previous to the latest physics step; a < 0 = raw physics pose

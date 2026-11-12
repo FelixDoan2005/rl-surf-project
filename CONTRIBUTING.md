@@ -2,13 +2,14 @@
 
 ## Branching
 - `main` is always working and openable in Unity. No direct pushes to `main`.
-- Branch names: `unity/<topic>`, `agent/<topic>`, `docs/<topic>`. Merge via pull request, at least one review.
+- Branch names: `<area>/<yourname>-<topic>`, where area is `unity`, `agent` or `docs`. Example: `unity/felix-env-bridge`, `agent/sam-ppo`. Merge via pull request, at least one review.
 - Keep commits small; commit Unity changes together with their `.meta` files.
 
 ## Unity rules
 - **Only one person edits a given Unity scene (or prefab) at a time.** Say so in the team chat before you start and when you finish. Scene/prefab merges are painful.
 - Prefer prefabs over editing the scene directly, to keep conflicts small.
 - `Assets/Terrain/SkiMountainData.asset` is a **binary** file (Git LFS) and cannot be merged: only the terrain owner edits it.
+- Building a player makes Unity rewrite `Assets/Settings/*.asset`, `ProjectSettings/ProjectSettings.asset` and `ProjectSettings/UnityConnectSettings.asset`. Don't commit those changes (`git restore` them after a build).
 - Physics settings (`ProjectSettings/TimeManager.asset`, `DynamicsManager.asset`) are part of the environment. Changing them changes training results, so agree first and update `docs/env_spec.md`.
 - Never commit `Library/`, `Temp/`, `UserSettings/`, `Logs/`, or builds.
 - Never delete or regenerate `.meta` files by hand.
@@ -31,7 +32,8 @@
 | Component | Version |
 |---|---|
 | Unity Editor | 6000.3.8f1 |
-| com.unity.ml-agents | _TBD (not yet installed)_ |
-| Python | _TBD_ |
-| mlagents-envs | _TBD_ |
+| Python | 3.11 |
+| numpy / gymnasium | 2.4 / 1.4 (installed and tested) |
 | torch | _TBD_ |
+
+We do not use ML-Agents: Unity and Python talk through our own socket server (`Assets/Scripts/EnvServer.cs`, `agent/envs/`).
