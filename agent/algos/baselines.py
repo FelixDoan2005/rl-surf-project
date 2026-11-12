@@ -19,4 +19,7 @@ class StraightAgent(Agent):
     """No input at all, it just rides straight down. A 'does nothing' baseline."""
 
     def act(self, obs, deterministic=False):
-        return np.zeros(self.env.action_space.shape, dtype=np.float32)
+        space = self.env.action_space
+        if hasattr(space, "n"):          # a discrete env (e.g. CartPole): always pick action 0
+            return 0
+        return np.zeros(space.shape, dtype=np.float32)

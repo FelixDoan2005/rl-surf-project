@@ -1,0 +1,23 @@
+name: python-ci
+
+# Quick checks on the Python side for every pull request and every push to main (about a minute).
+# They don't need Unity: the scripts run on CartPole, and the Unity bridge is checked against a fake server.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4          # no LFS here: the Python tests don't need the terrain / images
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install (no torch, the tests don't need it)
+        run: pip install numpy gymnasium matplotlib pytest
+      - name: Python files compile
+        run: python -m compileall -q agent/envs agent/algos agent/scripts agent/tests
+      - name: Tests
+        run: python -m pytest agent/tests -q

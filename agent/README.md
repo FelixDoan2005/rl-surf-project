@@ -23,6 +23,11 @@ The game is the environment, this folder is the brain + the scripts around it. R
 
 Try the random agent first to check everything works: `python agent/scripts/train.py --algo random --episodes 5 --exe Builds/SnowboardEnv/SnowboardEnv.exe`
 
+To try your algorithm on a standard environment first (no Unity needed, the coursework recommends this), add `--env CartPole-v1` (or any Gymnasium id) to train / evaluate: `python agent/scripts/train.py --algo <yours> --env CartPole-v1`
+
+## Tests
+`python -m pytest agent/tests` (pytest is in requirements.txt). They don't need Unity and GitHub runs them on every pull request (`.github/workflows/python-ci.yml`), so run them before you push.
+
 ## Keeping results comparable
 - Use `evaluate.py` for the final numbers: same seeds for every agent.
 - Run each experiment with a few different `--seed`s.

@@ -6,7 +6,7 @@
 - Keep commits small; commit Unity changes together with their `.meta` files.
 
 ## Unity rules
-- **Only one person edits a given Unity scene (or prefab) at a time.** Say so in the team chat before you start and when you finish. Scene/prefab merges are painful.
+- **Only one person edits a given Unity scene (or prefab) at a time.** Say so in the team chat before you start and when you finish. Scene/prefab merges are painful pls pls.
 - Prefer prefabs over editing the scene directly, to keep conflicts small.
 - `Assets/Terrain/SkiMountainData.asset` is a **binary** file (Git LFS) and cannot be merged: only the terrain owner edits it.
 - Building a player makes Unity rewrite `Assets/Settings/*.asset`, `ProjectSettings/ProjectSettings.asset` and `ProjectSettings/UnityConnectSettings.asset`. Don't commit those changes (`git restore` them after a build).
@@ -27,6 +27,7 @@
 - [ ] If the env spec changed (observations/actions/reward), `docs/env_spec.md` is updated and the Python side agrees
 - [ ] Third-party code added? `README.md` "Third-party code" updated
 - [ ] Python: `pip install -r agent/requirements.txt` still works
+- [ ] Python: `python -m pytest agent/tests` passes (GitHub runs it on every PR)
 
 ## Pinned versions (fill in exactly; everyone must match)
 | Component | Version |

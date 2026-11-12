@@ -3,6 +3,8 @@
     python agent/scripts/train.py --algo random --exe Builds/SnowboardEnv/SnowboardEnv.exe --episodes 20
     python agent/scripts/train.py --algo ppo --config agent/configs/ppo.json --exe Builds/SnowboardEnv/SnowboardEnv.exe --repeat 4
 
+To try an algorithm on a standard environment first (no Unity needed): add --env CartPole-v1 (or any Gymnasium id).
+
 Run it from the repo root. Each run writes results/<run>/ with config.json and episodes.csv (plot_results.py draws
 learning curves from those), plus final.pt if the agent's save() writes one. The learning itself is the agent's job
 (algos/<yours>.py): this script just calls act() and observe().
@@ -38,8 +40,8 @@ def main():
     agent = make_agent(args.algo, env, config, args.seed)
     os.makedirs(out, exist_ok=True)
     with open(os.path.join(out, "config.json"), "w") as f:
-        json.dump({"args": vars(args), "config": config, "obs_size": env.obs_size,
-                   "action_names": env.action_names, "dt": env.dt}, f, indent=2)
+        json.dump({"args": vars(args), "config": config, "obs_shape": list(env.observation_space.shape),
+                   "action_names": getattr(env, "action_names", None), "dt": getattr(env, "dt", None)}, f, indent=2)
 
     fields = ["episode", "env_steps", "return", "length", "sim_seconds", "finished", "ending", "wall_seconds"]
     t0 = time.time()
@@ -59,9 +61,9 @@ def main():
                 steps += 1
                 done = terminated or truncated
             total_steps += steps
-            ending = ending_of(info, truncated)
+            ending = ending_of(info, terminated, truncated)
             writer.writerow({"episode": ep + 1, "env_steps": total_steps, "return": round(ret, 4), "length": steps,
-                             "sim_seconds": round(info["episodeTime"], 2), "finished": int(info["finished"]),
+                             "sim_seconds": round(info.get("episodeTime", steps), 2), "finished": int(info.get("finished", False)),
                              "ending": ending, "wall_seconds": round(time.time() - t0, 1)})
             f.flush()
             print(f"episode {ep + 1:4d}  return {ret:8.2f}  steps {steps:5d}  {ending}")

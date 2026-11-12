@@ -42,7 +42,7 @@ def main():
                 ret += reward
                 done = terminated or truncated
             ep += 1
-            print(f"episode {ep}: return {ret:.2f}  {ending_of(info, truncated)}")
+            print(f"episode {ep}: return {ret:.2f}  {ending_of(info, terminated, truncated)}")
     except KeyboardInterrupt:
         pass
     env.close()
